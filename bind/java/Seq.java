@@ -313,11 +313,12 @@ public class Seq {
 		RefMap() {}
 
 		Ref get(int key) {
-			int i = Arrays.binarySearch(keys, 0, next, key);
-			if (i >= 0) {
-				return objs[i];
-			}
 			return null;
+			// int i = Arrays.binarySearch(keys, 0, next, key);
+			// if (i >= 0) {
+			// 	return objs[i];
+			// }
+			// return null;
 		}
 
 		void remove(int key) {

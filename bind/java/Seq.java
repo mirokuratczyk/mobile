@@ -173,6 +173,7 @@ public class Seq {
 		// inc increments the reference count of a Java object when it
 		// is sent to Go. inc returns the refnum for the object.
 		synchronized int inc(Object o) {
+			
 			if (o == null) {
 				return NULL_REFNUM;
 			}
@@ -188,6 +189,9 @@ public class Seq {
 				javaRefs.put(o, refnumObj);
 			}
 			int refnum = refnumObj;
+
+			log.severe("inc request for Go object "+ refnum);
+
 			Ref ref = javaObjs.get(refnum);
 			if (ref == null) {
 				ref = new Ref(refnum, o);

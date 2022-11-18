@@ -146,6 +146,7 @@ public class Seq {
 				throw new RuntimeException("refnum " + refnum + " overflow");
 			}
 			refcnt++;
+			log.severe("new refcount for Go object "+ refnum + " is " + refcnt);
 		}
 	}
 
@@ -214,6 +215,7 @@ public class Seq {
 		// If the count reaches zero, the Java object is removed
 		// from the javaObjs map.
 		synchronized void dec(int refnum) {
+			log.severe("dec request for Go object "+ refnum);
 			if (refnum <= 0) {
 				// We don't keep track of the Go object.
 				// This must not happen.
@@ -229,6 +231,7 @@ public class Seq {
 				throw new RuntimeException("referenced Java object is not found: refnum="+refnum);
 			}
 			obj.refcnt--;
+			log.severe("new refcnt for Go object "+ refnum + " is " + obj.refcnt);
 			if (obj.refcnt <= 0) {
 				javaObjs.remove(refnum);
 				javaRefs.remove(obj.obj);

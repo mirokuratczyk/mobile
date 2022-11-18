@@ -89,7 +89,7 @@ public class Seq {
 	}
 
 	public static Ref getRef(int refnum) {
-		return null; //tracker.get(refnum);
+		return tracker.get(refnum);
 	}
 
 	// Increment the Go reference count before sending over a refnum.

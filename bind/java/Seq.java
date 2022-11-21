@@ -89,6 +89,7 @@ public class Seq {
 	}
 
 	public static Ref getRef(int refnum) {
+		tracker.dec(refnum);
 		return tracker.get(refnum);
 	}
 

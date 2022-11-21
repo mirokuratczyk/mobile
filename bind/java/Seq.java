@@ -247,7 +247,7 @@ public class Seq {
 				return nullRef;
 			}
 			Ref ref = javaObjs.get(refnum);
-			if (ref == null) {
+			if (ref == null) { // this is a null guard on RefMap
 				throw new RuntimeException("unknown java Ref: "+refnum);
 			}
 			return ref;
@@ -313,12 +313,11 @@ public class Seq {
 		RefMap() {}
 
 		Ref get(int key) {
+			int i = Arrays.binarySearch(keys, 0, next, key);
+			if (i >= 0) {
+				return objs[i];
+			}
 			return null;
-			// int i = Arrays.binarySearch(keys, 0, next, key);
-			// if (i >= 0) {
-			// 	return objs[i];
-			// }
-			// return null;
 		}
 
 		void remove(int key) {

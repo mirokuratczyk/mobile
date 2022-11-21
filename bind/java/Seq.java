@@ -16,6 +16,8 @@ import java.util.IdentityHashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
+import java.util.List;
+import java.util.LinkedList;
 
 import go.Universe;
 
@@ -89,6 +91,16 @@ public class Seq {
 	}
 
 	public static Ref getRef(int refnum) {
+		List<byte[]> list = new LinkedList<>();
+		int index = 1;
+			
+		for (int i = 0; i < 9999; i++) {
+			byte[] b = new byte[10 * 1024 * 1024]; // 10MB byte object
+			list.add(b);
+			Runtime rt = Runtime.getRuntime();
+			System.out.printf("[%3s] Available heap memory: %s%n", index++, rt.freeMemory());
+		}
+
 		return tracker.get(refnum);
 	}
 

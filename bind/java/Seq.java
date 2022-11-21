@@ -89,7 +89,7 @@ public class Seq {
 	}
 
 	public static Ref getRef(int refnum) {
-		tracker.removeRef(refnum);
+		tracker.dec(refnum);
 		return tracker.get(refnum);
 	}
 
@@ -238,28 +238,6 @@ public class Seq {
 				javaRefs.remove(obj.obj);
 			}
 		}
-
-		synchronized void removeRef(int refnum) {
-			log.severe("dec request for Go object "+ refnum);
-			if (refnum <= 0) {
-				// We don't keep track of the Go object.
-				// This must not happen.
-				log.severe("dec request for Go object "+ refnum);
-				return;
-			}
-			if (refnum == Seq.nullRef.refnum) {
-				return;
-			}
-			// Java objects are removed on request of Go.
-			Ref obj = javaObjs.get(refnum);
-			if (obj == null) {
-				throw new RuntimeException("referenced Java object is not found: refnum="+refnum);
-			}
-			log.severe("removing ref "+ refnum + " with refcnt " + obj.refcnt);
-			javaObjs.remove(refnum);
-			javaRefs.remove(obj.obj);
-		}
-
 
 		// get returns an existing Ref to a Java object.
 		synchronized Ref get(int refnum) {
